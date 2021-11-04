@@ -11,7 +11,8 @@ Author: Fabrice DUJARDIN
 Version: 1.0
 Author URI: https://fabricedujardinportfolio.github.io/
 */
-// First step: create the database
+
+// Premiére étape: Création de la database
 
 function event_database()
 {
@@ -38,31 +39,10 @@ function event_database()
 
 register_activation_hook(__FILE__, 'event_database');
 
-
-// function event_default_data() {
-// 	global $wpdb;
-
-//     $table_name = $wpdb->prefix . 'reservation_events';
-// 	// var_dump($table_name);
-// 	$wpdb->insert( 
-// 		$table_name,
-// 		array( 
-// 			'first_name' => 'Fabrice',
-// 			'last_name' => 'DUJARDIN ',
-// 			'phone' => '720165',
-// 			'age' => '16',
-// 			'cours'=> 'test',
-// 		) 
-// 	);
-// }
-
-// register_activation_hook(__FILE__, 'event_default_data');
-
-
-// Third step: Add plugin to admin
-
+// Troiséme étap: Rajout du plugin sur admin
 function add_plugin_to_admin_events()
 {
+	// Utilisation de la classe wordpress WP_List_Table
 	function event_content()
 	{
 		echo "<h1>Events</h1>";
@@ -89,7 +69,7 @@ add_action('admin_menu', 'add_plugin_to_admin_events');
 function reservation_form()
 {
 	ob_start();
-
+	// Récupération des données
 	if (isset($_POST['fabreservations'])) {
 		$first_name = sanitize_text_field($_POST["first_name"]);
 		$last_name = sanitize_text_field($_POST["last_name"]);
@@ -97,7 +77,8 @@ function reservation_form()
 		$age = esc_textarea($_POST["age"]);
 		$cours = sanitize_text_field($_POST["cours-id"]);
 		$horraire = sanitize_text_field($_POST["horraire"]);
-		// var_dump($horraire);
+
+		// Vérification des données
 		if ($first_name != '' && $last_name != '' && $phone  != '' && $age  != '' && $cours  != '') {
 			global $wpdb;
 
@@ -119,7 +100,7 @@ function reservation_form()
 			echo "<h4>Merci! Vous êtes inscrit à ce cours.</h4>";
 		}
 	}
-
+	//Formulaire à intégrer avec un code court
 	echo "<form class='col-8 mx-auto' method='POST'>";
 	echo "<h5> <strong>Inscription au:</strong> " . get_the_title() . " </h5>";
 	echo "<div class='input-group mb-3'>";
